@@ -182,18 +182,20 @@ record Mon' : 𝓤 (lsuc i) where
     left-unit-law : (x : carrier) → x · 𝟏 ≡ x
     right-unit-law : (x : carrier) → 𝟏 · x ≡ x
     assoc-law : (x y z : carrier) → (x · (y · z)) ≡ ((x · y) · z)
-    
--- Advantages of using records:
---   - The code becomes more clear.
---   - You can use elements of the record (e.g., carrier-is-set) as projections to extract elements out of the record.
---   - The goals are more readable when you're proving something using the record.
---
--- Disadvantages of using records:
---   - In HoTT, we prove lots of properties using Σ (e.g., a sum of sets is a set). We can't use these if using a record.
---
--- Two solutions to this problem:
---   1. Use only Σ. (This is what Martin and Egbert do.)
---   2. Define everything twice (Σ and record). (This is what the cubical Agda library does, using metaprogramming that automatically generates the Σ from the record.)
+
+{-
+Advantages of using records:
+  - The code becomes more clear.
+  - You can use elements of the record (e.g., carrier-is-set) as projections to extract elements out of the record.
+  - The goals are more readable when you're proving something using the record.
+
+Disadvantages of using records:
+  - In HoTT, we prove lots of properties using Σ (e.g., a sum of sets is a set). We can't use these if using a record.
+
+Two solutions to this problem:
+  1. Use only Σ. (This is what Martin and Egbert do.)
+  2. Define everything twice (Σ and record). (This is what the cubical Agda library does, using metaprogramming that automatically generates the Σ from the record.)
+-}
 
 -- Converting between Σ and record definitions of Mon:
 α : Mon {i} → Mon' {i}
