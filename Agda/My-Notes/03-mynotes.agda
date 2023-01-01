@@ -186,7 +186,7 @@ record Mon' : 𝓤 (lsuc i) where
 -- Advantages of using records:
 --   - The code becomes more clear.
 --   - You can use elements of the record (e.g., carrier-is-set) as projections to extract elements out of the record.
---   - The goals are more readable when you're proving somethign using the record.
+--   - The goals are more readable when you're proving something using the record.
 --
 -- Disadvantages of using records:
 --   - In HoTT, we prove lots of properties using Σ (e.g., a sum of sets is a set). We can't use these if using a record.
