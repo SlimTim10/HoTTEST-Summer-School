@@ -172,9 +172,9 @@ List-elim {X} A a f = h
 
 length' : {X : Type} → List X → ℕ
 length' [] = 0
--- length' (x :: xs) = ℕ-elim {λ _ → ℕ} 1 (λ k _ → suc k) 0
-length' {X} (x :: xs) = List-elim {X} (λ _ → ℕ) 1 (λ _ _ y → y) xs
--- Is this correct???
+-- ℕ-elim {λ _ → ℕ} 1 (λ k _ → suc k) 0
+length' {X} (_ :: rest) = List-elim {X} (λ _ → ℕ) 1 (λ _ _ n → suc n) rest
+
 
 
 -- Acts like false
@@ -191,6 +191,10 @@ zero ≣ zero = 𝟙
 zero ≣ suc y = 𝟘
 suc x ≣ zero = 𝟘
 suc x ≣ suc y = x ≣ y
+
+-- Making sure length' works
+is-3 : length' (7 :: 8 :: 9 :: []) ≣ 3
+is-3 = ⋆
 
 infix 0 _≣_
 

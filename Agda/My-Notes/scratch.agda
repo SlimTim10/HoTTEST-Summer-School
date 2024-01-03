@@ -227,3 +227,30 @@ map-comp f g (x :: xs) = to-show
     to-show : (g ∘ f) x :: map (g ∘ f) xs ≡ g (f x) :: map g (map f xs)
     -- to-show = ap (λ ys → g (f x) :: ys) IH
     to-show = ap (g (f x) ::_) IH
+
+-- Experimenting with defining hierarchies
+postulate
+  Animal : Type
+  is-warm-blooded : Animal → Type
+  is-vertebrate : Animal → Type
+  has-fur : Animal → Type
+  produces-milk : Animal → Type
+
+Mammal : Type
+Mammal = Σ x ꞉ Animal
+  , is-warm-blooded x
+  × is-vertebrate x
+  × has-fur x
+  × produces-milk x
+
+postulate
+  Person : Type
+
+Child : Type
+Child = Σ self ꞉ Person , Person × Person
+
+record Child' : Type where
+  field
+    self : Person
+    mother : Person
+    father : Person

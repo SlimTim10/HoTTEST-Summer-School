@@ -8,12 +8,19 @@ open import 01-mynotes hiding (𝟘 ; 𝟙 ; D)
 
 -- empty type
 -- \b0
-data 𝟘 : Type where
+data 𝟘 : Type where -- type formation rule
 
 -- HoTT notation: Π x ꞉ X , A x
 -- Agda notation: (x : X) → A x
 
-𝟘-elim : {A : 𝟘 → Type} (x : 𝟘) → A x
+-- elimination rule
+--
+-- Γ , x : 𝟘 ⊢ P type    Γ ⊢ a : 𝟘
+-----------------------------------------------
+-- Γ ⊢ ind₀ : Π x : 𝟘 , P(x)
+--
+-- This specific induction principle is "ex falso quodlibet": if we assume the empty type has a term, then we can prove anything.
+𝟘-elim : {C : 𝟘 → Type} (x : 𝟘) → C x
 𝟘-elim ()
 
 -- Recall, 𝟘 acts like false
@@ -49,9 +56,9 @@ is-empty A = A → 𝟘
 -- Unit type, different syntax from previous lecture
 -- Record definitions satisfy a certain "η" rule
 -- Recall, 𝟙 acts like true
-record 𝟙 : Type where
+record 𝟙 : Type where -- formation rule
   constructor
-    ⋆
+    ⋆ -- introduction rule
 
 -- To access constructors of a record
 open 𝟙 public
@@ -65,6 +72,8 @@ open 𝟙 public
 𝟙-is-nonempty' f = f ⋆
 
 
+-- elimination rule
+--
 -- Γ , ⋆ : 𝟙 ⊢ P(⋆) type
 -------------------------------------------
 -- Γ ⊢ ind₁ : P(⋆) → Π x : 𝟙 , P(x)
@@ -209,7 +218,7 @@ D false = Bool
   : {A : Type} {B : A → Type} {C : (Σ x ꞉ A , B x) → Type}
   → ((x : A) (y : B x) → C (x , y))
   → (z : (Σ x ꞉ A , B x)) → C z -- *
--- *Remember, for any elimination rule, we want to prove that for any element (z) of the new type (Σ), some property holds (C).
+-- *Remember, for any elimination rule, we want to prove that for any element (z) of the new type (Σ), some property holds (C). This is the principle of induction.
 Σ-elim f (x , y) = f x y
 
 Σ-curry
